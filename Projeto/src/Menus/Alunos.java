@@ -11,7 +11,8 @@ public class Alunos {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
-        do {
+       boolean continuar = true;
+        while (continuar) {
             System.out.println("Selecione a opção desejada:");
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Pesquisar alunos");
@@ -35,11 +36,13 @@ public class Alunos {
                     break;
                 case "0":
                     System.out.println("Encerrando o programa...");
+                    continuar = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (!opcao.equals("0"));
+        }
+
     }
 
     private static void cadastrarAluno(Scanner scanner, AlunoController alunoController) {

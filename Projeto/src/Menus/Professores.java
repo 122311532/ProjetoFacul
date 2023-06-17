@@ -11,7 +11,8 @@ public class Professores {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
-        do {
+       boolean continuar = true;
+        while (continuar) {
             System.out.println("Selecione a opção desejada:");
             System.out.println("1 - Cadastrar professor");
             System.out.println("2 - Pesquisar professor por CPF");
@@ -39,11 +40,13 @@ public class Professores {
                     break;
                 case "0":
                     System.out.println("Encerrando o programa...");
+                    continuar = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (!opcao.equals("0"));
+        }
+
     }
 
     private static void cadastrarProfessor(Scanner scanner, ProfessorController professorController) {
@@ -51,8 +54,14 @@ public class Professores {
         String nome = scanner.nextLine();
         System.out.println("Digite o CPF do professor:");
         String cpf = scanner.nextLine();
+        System.out.println("Digite o endereço do aluno:");
+        String endereco = scanner.nextLine();
+        System.out.println("Digite o email do aluno:");
+        String email = scanner.nextLine();
+        System.out.println("Digite o celular do aluno:");
+        String celular = scanner.nextLine();
 
-        Professor professor = new Professor(cpf, nome, "", "", ""); // Altere as informações de endereço, email e celular conforme necessário
+        Professor professor = new Professor(cpf, nome,endereco, email, celular); // Altere as informações de endereço, email e celular conforme necessário
         professorController.cadastrarProfessor(professor);
         System.out.println("Professor cadastrado com sucesso.");
     }
@@ -86,9 +95,43 @@ public class Professores {
         List<Professor> listaProfessores = professorController.listarProfessores();
         if (!listaProfessores.isEmpty()) {
             System.out.println("Lista de professores:");
-            for (Professor professor : listaProfessores) {
-                System.out.println(professor.getNome());
+            System.out.println("---------------------------------------------------------");
+
+            // Definindo a matriz para a tabela
+            String[][] tabela = new String[listaProfessores.size() + 1][5];
+
+            // Preenchendo a primeira linha com os cabeçalhos
+            tabela[0] = new String[]{"Nome", "CPF", "Endereço", "Email", "Celular"};
+
+            // Preenchendo as demais linhas com os dados dos professores
+            for (int i = 0; i < listaProfessores.size(); i++) {
+                Professor professor = listaProfessores.get(i);
+                tabela[i + 1] = new String[]{
+                        professor.getNome(), professor.getCpf(), professor.getEndereco(),
+                        professor.getEmail(), professor.getCelular()
+                };
             }
+
+            // Definindo o tamanho máximo de cada coluna
+            int[] tamanhoColunas = new int[5];
+            for (int i = 0; i < tabela.length; i++) {
+                for (int j = 0; j < tabela[i].length; j++) {
+                    int tamanhoCampo = tabela[i][j].length();
+                    if (tamanhoCampo > tamanhoColunas[j]) {
+                        tamanhoColunas[j] = tamanhoCampo;
+                    }
+                }
+            }
+
+            // Imprimindo a tabela
+            for (int i = 0; i < tabela.length; i++) {
+                for (int j = 0; j < tabela[i].length; j++) {
+                    System.out.printf("| %-"+(tamanhoColunas[j]+2)+"s", tabela[i][j]);
+                }
+                System.out.println("|");
+            }
+
+            System.out.println("---------------------------------------------------------");
         } else {
             System.out.println("Nenhum professor cadastrado");
         }

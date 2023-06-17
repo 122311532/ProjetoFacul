@@ -7,10 +7,11 @@ public class Principal {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
-        do {
+        boolean continuar = true;
+        while (continuar) {
             System.out.println("Selecione a opção desejada:");
             System.out.println("1 - Alunos");
-            System.out.println("2 - Outra opção");
+            System.out.println("2 - Professores");
             System.out.println("0 - Sair");
             opcao = scanner.nextLine();
 
@@ -23,11 +24,12 @@ public class Principal {
                     break;
                 case "0":
                     System.out.println("Encerrando o programa...");
+                    continuar = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (!opcao.equals("0"));
+        }
 
         scanner.close();
     }

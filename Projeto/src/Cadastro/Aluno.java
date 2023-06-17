@@ -1,6 +1,6 @@
 package Cadastro;
 
-// Classe Aluno (subclasse de Pessoa)
+// Classe Aluno (Herança de Pessoa)
 public class Aluno extends Pessoa {
     private String matricula;
 

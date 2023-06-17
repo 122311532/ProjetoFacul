@@ -1,5 +1,6 @@
 package Cadastro;
 
+// Classe Professor (Herança de Pessoa)
 public class Professor extends Pessoa {
     private String cpf;
 
